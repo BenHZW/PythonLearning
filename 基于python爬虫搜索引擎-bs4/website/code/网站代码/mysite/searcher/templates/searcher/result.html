@@ -1,0 +1,51 @@
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    {% load staticfiles %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}"/>
+
+</head>
+<body>
+
+<div class="w_container">
+		<div class="container">
+			<div class="row w_main_row">
+
+				<ol class="breadcrumb w_breadcrumb">
+                    <li><a onclick="javascript :history.back(-1);"> <返回 </a></li>
+				  <li><a href="/searcher">首页</a></li>
+				  <li><a href="#">新闻</a></li>
+                    <li><a href="#">{{new.arttype}}</a></li>
+				  <li class="active">{{new.title}}</li>
+				  <span class="w_navbar_tip">长路漫漫，只因学无止境。</span>
+				</ol>
+
+				<div class="col-lg-9 col-md-9 w_main_left">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<!--<h2 class="c_titile">{{new.title}}</h2>-->
+							<!--<p class="box_c"><span class="d_time">发布时间：{{new.pubtime}}</span> <span><a href="{{new.url}}">原文链接</a></span></p>-->
+							<ul class="infos">
+
+                                {% autoescape off %}
+                                    {{ new.detailcontent}}
+                                {% endautoescape %}
+
+
+							</ul>
+
+
+
+
+						</div>
+					</div>
+                </div>
+
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>

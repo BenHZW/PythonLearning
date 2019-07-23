@@ -1,0 +1,84 @@
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    {% load staticfiles %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/article.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}"/>
+
+</head>
+<body>
+<div class="w_header">
+			<div class="container">
+				<div class="w_header_top">
+
+				<!-- <a href="#" class="w_logo"></a>	 -->
+					newsTypeList = ["行业资讯", "专题", "热点追踪", "专利与资本", "技术市场", "企业专栏", "数字", "技术"]
+				<span class="w_header_nav">
+					<ul>
+						<li><a href="/searcher/list?arttype=" class="active">全部</a></li>
+						<li><a href="/searcher/list?arttype=行业资讯">行业资讯</a></li>
+						<li><a href="/searcher/subject?arttype=专题">专题</a></li>
+						<li><a href="/searcher/list?arttype=热点追踪">热点追踪</a></li>
+						<li><a href="/searcher/list?arttype=专利与资本">专利与资本</a></li>
+						<li><a href="/searcher/list?arttype=技术市场">技术市场</a></li>
+						<li><a href="/searcher/list?arttype=企业专栏">企业专栏</a></li>
+						<li><a href="/searcher/list?arttype=数字">数字</a></li>
+						<li><a href="/searcher/list?arttype=技术">技术</a></li>
+					</ul>
+				</span>
+
+				</div>
+			</div>
+		</div>
+
+<div class="w_container">
+		<div class="container">
+			<div class="row w_main_row">
+
+				<ol class="breadcrumb w_breadcrumb">
+				  <li><a href="/searcher">首页</a></li>
+				  <li class="active">文章</li>
+				</ol>
+
+				<div class="col-lg-12 col-md-12 w_main_left">
+					<div class="panel panel-default">
+					  <div class="panel-body contentList">
+
+					  	{% for new in news %}
+
+					  		<div class="panel panel-default">
+											<div class="panel-body">
+												<div class="contentleft">
+													<h4><a class="title" href="/searcher/detail/?tid={{new.tid}}">{{new.stitle}}</a></h4>
+													<p>
+														<a class="label label-default">{{new.title}}</a>
+
+													</p>
+													<p class="overView">{{new.des}}</p>
+													<p><span class="count"><i class="glyphicon glyphicon-user"></i><a href="#">原文链接</a></span> <span class="count"><i class="glyphicon glyphicon-time"></i>{{new.wr}}</span></p>
+												</div>
+												<div class="contentImage">
+													<div class="row">
+
+													</div>
+												</div>
+											</div>
+										</div>
+					  	{% endfor %}
+
+
+
+					  </div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+</body>
+</html>

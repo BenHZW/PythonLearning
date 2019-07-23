@@ -1,0 +1,168 @@
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>post</title>
+        {% load staticfiles %}
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta charset="utf-8">
+		<link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/loading.css' %}" media="all"/>
+        <script src="{% static 'js/loading.js' %}"></script>
+        <script src="{% static 'js/jquery.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/fileinput.js' %}"></script>
+    </head>
+	<body>
+
+    <div id="loading" class="lds-css ng-scope" style="width:100%;height:100%;"><div style="width:100%;height:100%;left:48%;top:40%;" class="lds-cube"><div></div><div></div><div></div><div></div></div></div>
+
+
+<div class="container " style="">
+
+    <div class=" div_divider">
+        <!-- 分割线 -->
+        <div class="row">
+            <div class="col-xs-12">
+
+                        <div id="legend" class="">
+                            <legend id="subtitle" class="">查询页</legend>
+                        </div>
+                        <br>
+                <form class="form-horizontal center-block text-center" role="form" id="form" enctype = "multipart/form-data" method="post">
+                    <div class="container">
+                    {% csrf_token %}
+                        <input type="text" style="display:none">
+
+                        <div class="row">
+
+                            <div class="col-sm-6 col-xs-6 text-center">
+                                <input class="form-control" name="keyword" id="keyword" />
+                            </div>
+                            <div class="col-sm-2 col-xs-2 text-center">
+                                <select id="arttype" class="form-control" name="arttype">
+                                    <option value="全部">全部</option>
+                                    <option value="时政">时政</option>
+                                    <option value="社会">社会</option>
+                                    <option value="国际">国际</option>
+                                    <option value="财经">财经</option>
+                                    <option value="体育">体育</option>
+                                    <option value="产经">产经</option>
+                                    <option value="台湾">台湾</option>
+                                    <option value="金融">金融</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+
+                    <div class="row">
+
+                        <div class="form-group col-xs-8 col-sm-8">
+                            <label class="control-label"></label>
+
+                            <!-- Button -->
+                            <div class="controls">
+                                <button id="submit" type="button" class="btn btn-default">提交</button>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+<hr>
+<div class="container">
+        <ul class="text-muted" id="resultContent"></ul>
+</div>
+
+
+
+	</body>
+	 <script type="text/javascript">
+
+	 $(document).ajaxStart(function(){
+
+　　$("#loading").fadeIn();
+
+　　})
+
+　　$(document).ajaxComplete(function(){
+
+　　$("#loading").fadeOut();
+
+　});
+
+ $(document).keyup(function(event){
+  if(event.keyCode ==13){
+                $("#submit").click();
+            }
+        });
+
+
+    $("#submit").on("click", function (e) {
+
+        $.ajax({
+            url: 'search/',
+            type: "POST",
+            data: {keyword:$("#keyword").val(),arttype:$("#arttype").val(),},
+
+            cache: false,
+            dataType: "json",
+            success: function (result) {
+                if(result.success){
+                $("#resultContent").html("");
+                    if(result.lenght != 0){
+                            $.each(result.data.result,function(index,item){
+
+                                var appStr = "<li><h3><a href='/searcher/detail?artid="+item.fields.artid+"'>新闻标题:"+item.fields.title+"</a></h3></li><ol><ul class=\"a\"><li>新闻类型:"+item.fields.arttype+"</li><li>上传时间:"+item.fields.pubtime+"</li><li>概要:"+item.fields.content+"</li></ul></ol><br>";
+
+                                 $("#resultContent").append(appStr);
+                            });
+                        }else($("#resultContent").html("查询结果为0"));
+                }else{
+                    alert("出错,请重试！")
+                }
+            }
+        });
+    });
+
+
+
+
+       function isMobile() {
+        var userAgentInfo = navigator.userAgent;
+
+        var mobileAgents = [ "Android", "iPhone", "SymbianOS", "Windows Phone", "iPad","iPod"];
+
+        var mobile_flag = false;
+
+        //根据userAgent判断是否是手机
+        for (var v = 0; v < mobileAgents.length; v++) {
+            if (userAgentInfo.indexOf(mobileAgents[v]) > 0) {
+                mobile_flag = true;
+                break;
+            }
+        }
+
+         var screen_width = window.screen.width;
+         var screen_height = window.screen.height;
+
+         //根据屏幕分辨率判断是否是手机
+         if(screen_width < 500 && screen_height < 800){
+             mobile_flag = true;
+         }
+
+         return mobile_flag;
+    }
+
+
+
+    </script>
+
+</html>

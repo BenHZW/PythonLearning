@@ -1,0 +1,84 @@
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    {% load staticfiles %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/article.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}"/>
+
+</head>
+<body>
+<div class="w_header">
+			<div class="container">
+				<div class="w_header_top">
+
+				<!-- <a href="#" class="w_logo"></a>	 -->
+				<span class="w_header_nav">
+					<ul>
+						<li><a href="?arttype=" class="active">全部</a></li>
+						<li><a href="?arttype=校报">校报</a></li>
+						<li><a href="?arttype=学校要闻">学校要闻</a></li>
+						<li><a href="?arttype=校园动态">校园动态</a></li>
+						<li><a href="?arttype=通知公告">通知公告</a></li>
+						<li><a href="?arttype=高教动态">高教动态</a></li>
+						<li><a href="?arttype=学术讲座">学术讲座</a></li>
+						<li><a href="?arttype=学术顾问">学术顾问</a></li>
+						<li><a href="?arttype=讲座教授">讲座教授</a></li>
+						<li><a href="?arttype=学术顾问">学术顾问</a></li>
+					</ul>
+				</span>
+
+				</div>
+			</div>
+		</div>
+
+<div class="w_container">
+		<div class="container">
+			<div class="row w_main_row">
+
+				<ol class="breadcrumb w_breadcrumb">
+				  <li><a href="/searcher">首页</a></li>
+				  <li class="active">文章</li>
+				</ol>
+
+				<div class="col-lg-12 col-md-12 w_main_left">
+					<div class="panel panel-default">
+					  <div class="panel-body contentList">
+
+					  	{% for new in news %}
+
+					  		<div class="panel panel-default">
+											<div class="panel-body">
+												<div class="contentleft">
+													<h4><a class="title" href="/searcher/detail/?artid={{new.artid}}">{{new.title}}</a></h4>
+													<p>
+														<a class="label label-default">{{new.arttype}}</a>
+
+													</p>
+													<p class="overView">{{new.content}}</p>
+													<p><span class="count"><i class="glyphicon glyphicon-user"></i><a href="{{new.url}}">原文链接</a></span> <span class="count"><i class="glyphicon glyphicon-time"></i>{{new.pubtime}}</span></p>
+												</div>
+												<div class="contentImage">
+													<div class="row">
+
+													</div>
+												</div>
+											</div>
+										</div>
+					  	{% endfor %}
+
+
+
+					  </div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+</body>
+</html>

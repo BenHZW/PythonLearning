@@ -1,0 +1,131 @@
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>post</title>
+        {% load staticfiles %}
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta charset="utf-8">
+		<link href="http://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/loading.css' %}" media="all"/>
+        <script src="{% static 'js/loading.js' %}"></script>
+        <script src="{% static 'js/jquery.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/fileinput.js' %}"></script>
+    </head>
+	<body>
+
+    <div id="loading" class="lds-css ng-scope" style="width:100%;height:100%;"><div style="width:100%;height:100%;left:48%;top:40%;" class="lds-cube"><div></div><div></div><div></div><div></div></div></div>
+
+
+<div class="container " style="">
+
+    <div class=" div_divider">
+        <!-- 分割线 -->
+        <div class="row">
+            <div class="col-xs-12">
+
+                        <div id="legend" class="">
+                            <legend id="subtitle" class="">控制页</legend>
+                        </div>
+                        <br>
+                <form class="form-horizontal center-block text-center" role="form" id="form" enctype = "multipart/form-data" method="post">
+                    <div class="container">
+                    {% csrf_token %}
+                    <div class="row">
+
+                        <div class="form-group col-xs-8 col-sm-8">
+                            <label class="control-label"></label>
+
+                            <!-- Button -->
+                            <div class="controls">
+                                <button id="submit" type="button" class="btn btn-default">开始</button>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+<hr>
+<div class="container">
+        <ul class="text-muted" id="resultContent"></ul>
+</div>
+
+
+
+	</body>
+	 <script type="text/javascript">
+
+	 $(document).ajaxStart(function(){
+
+　　$("#loading").fadeIn();
+
+　　})
+
+　　$(document).ajaxComplete(function(){
+
+　　$("#loading").fadeOut();
+
+　});
+
+ $(document).keyup(function(event){
+  if(event.keyCode ==13){
+                $("#submit").click();
+            }
+        });
+
+
+    $("#submit").on("click", function (e) {
+
+        $.ajax({
+            url: '/searcher/start/',
+            type: "POST",
+
+            cache: false,
+            dataType: "json",
+            success: function (result) {
+
+            }
+        });
+    });
+
+
+
+
+       function isMobile() {
+        var userAgentInfo = navigator.userAgent;
+
+        var mobileAgents = [ "Android", "iPhone", "SymbianOS", "Windows Phone", "iPad","iPod"];
+
+        var mobile_flag = false;
+
+        //根据userAgent判断是否是手机
+        for (var v = 0; v < mobileAgents.length; v++) {
+            if (userAgentInfo.indexOf(mobileAgents[v]) > 0) {
+                mobile_flag = true;
+                break;
+            }
+        }
+
+         var screen_width = window.screen.width;
+         var screen_height = window.screen.height;
+
+         //根据屏幕分辨率判断是否是手机
+         if(screen_width < 500 && screen_height < 800){
+             mobile_flag = true;
+         }
+
+         return mobile_flag;
+    }
+
+
+
+    </script>
+
+</html>
